@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.IOException;
 
-class WrongStudentName extends Exception { }
+class WrongStudentName extends Exception { }  
 
-class Main {
+class  Main {
     public static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
