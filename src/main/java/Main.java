@@ -1,4 +1,3 @@
-
 /*
 Program sprawdza poprawność wpisywanego imienia. W przypadku wystąpienia spacji w imieniu, funkcja wyrzuca zdefiniowany wyjątek WrongStudentName, który jest wyłapywany w pętli głównej Commit6_0.
 Poniższe zadania będą się sprowadzały do modyfikacji bazowego kodu. Proces modyfikacji ogólnie może wyglądać następująco:
@@ -12,16 +11,13 @@ Poniższe zadania będą się sprowadzały do modyfikacji bazowego kodu. Proces 
 
 //Commit6_1. Na podstawie analogii do wyjątku WrongStudentName utwórz i obsłuż wyjątki WrongAge oraz WrongDateOfBirth. 
 //Niepoprawny wiek – gdy jest mniejszy od 0 lub większy niż 100. Niepoprawna data urodzenia – gdy nie jest zapisana w formacie DD-MM-YYYY, np. 28-02-2023.
-
-
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.IOException;
 
-class WrongStudentName extends Exception  { }  
+class WrongStudentName extends Exception { }
 
-class  Main {
-    public static Scanner scan = new Scanner(System.in);
+class Main {
+    public static Scanner scan = new Scanner(System.in); 
 
     public static void main(String[] args) {
         while(true) {
@@ -34,9 +30,11 @@ class  Main {
                     default: return;
                 }
             } catch(IOException e) {
-
+                System.out.println("Błąd wejścia/wyjścia!");
             } catch(WrongStudentName e) {
-                System.out.println("Błędne imie studenta!");
+                System.out.println("Błędne imię studenta!");
+            } catch(IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -52,7 +50,7 @@ class  Main {
 
     public static String ReadName() throws WrongStudentName {
         scan.nextLine();
-        System.out.println("Podaj imie: ");
+        System.out.println("Podaj imię: ");
         String name = scan.nextLine();
         if(name.contains(" "))
             throw new WrongStudentName();
@@ -64,6 +62,9 @@ class  Main {
         var name = ReadName();
         System.out.println("Podaj wiek: ");
         var age = scan.nextInt();
+        if(age < 0 || age > 100) {
+            throw new IllegalArgumentException("Wiek musi być w zakresie od 0 do 100.");
+        }
         scan.nextLine();
         System.out.println("Podaj datę urodzenia DD-MM-YYY");
         var date = scan.nextLine();
@@ -73,20 +74,21 @@ class  Main {
     public static void exercise2() throws IOException {
         var students = (new Service()).getStudents();
         for(Student current : students) {
-            System.out.println(current.ToString());
+            System.out.println(current.toString());
         }
     }
 
     public static void exercise3() throws IOException {
         scan.nextLine();
-        System.out.println("Podaj imie: ");
+        System.out.println("Podaj imię: ");
         var name = scan.nextLine();
         var wanted = (new Service()).findStudentByName(name);
         if(wanted == null)
             System.out.println("Nie znaleziono...");
         else {
             System.out.println("Znaleziono: ");
-            System.out.println(wanted.ToString());
+            System.out.println(wanted.toString());
         }
     }
 }
+
